@@ -241,7 +241,7 @@ public class HeapBinomial {
 
     public void eliminar(ArbolBinomial node) {
         //disminuirClave(node, Integer.MIN_VALUE);
-        extraerMin();
+        //extraerMin();
         System.out.println("El nodo ha sido eliminado.");
     }
 
