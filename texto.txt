@@ -1,0 +1,5 @@
+La eficiencia de los algoritmos es un aspecto fundamental en el diseño y análisis de soluciones computacionales. Se refiere a la cantidad de recursos que un algoritmo consume, como tiempo de ejecución y memoria, en función del tamaño de la entrada. 
+
+El análisis de eficiencia se divide en dos categorías principales: el análisis temporal y el análisis espacial. El análisis temporal evalúa el tiempo que un algoritmo tarda en completarse, mientras que el análisis espacial mide la cantidad de memoria que utiliza durante su ejecución.
+
+La eficiencia de los algoritmos es un pilar esencial en la informática, ya que impacta directamente en el rendimiento y la viabilidad de las soluciones computacionales.
