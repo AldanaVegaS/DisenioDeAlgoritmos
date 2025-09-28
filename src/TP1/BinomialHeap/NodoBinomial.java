@@ -39,6 +39,10 @@ public class NodoBinomial {
         this.hermano = hermano;
     }
 
+    public void setKey(int key) {
+        this.key = key;
+    }
+
     public void setHijo(NodoBinomial hijo) {
         this.hijo = hijo;
         this.grado = 1 + hijo.getGrado();
