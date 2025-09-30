@@ -58,7 +58,8 @@ public class test {
         /*PRUEBA ELIMINAR ELEMENTO */
         System.out.println("PRUEBA ELIMINAR ELEMENTO:");
         System.out.println("Eliminar nodo con clave 20");
-        heap.eliminar(20);
+        nodo = heap.buscarNodo(20);
+        heap.eliminar(nodo);
         heap.printHeapVisual();
         System.out.println("------------------------------------------------------------------\n");
         

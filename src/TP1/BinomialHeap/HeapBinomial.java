@@ -12,20 +12,15 @@ public class HeapBinomial {
     }
 
     private ArbolBinomial merge(ArbolBinomial h1, ArbolBinomial h2) {//Une dos arboles binomiales de igual grado
-        //System.out.println("DENTRO DE MERGE");
         if (h1 == null) return h2;
         if (h2 == null) return h1;
 
-        //System.out.println("Comparando las raices: h1=" + h1.getRaiz().getKey() + " y h2=" + h2.getRaiz().getKey());
-
         if(h1.getRaiz().getKey() < h2.getRaiz().getKey()) {
-            //System.out.println("h1 es menor que h2");
             h2.getRaiz().setHermano(h1.getRaiz().getHijo());//El hijo actual de h1 pasa a ser hermano de h2
             h1.getRaiz().setHijo(h2.getRaiz());//h2 pasa a ser hijo de h1
             h2.getRaiz().setPadre(h1.getRaiz());//Actualizo el padre de h2
             return h1;
         }else {
-            //System.out.println("h2 es menor que h1");
             h1.getRaiz().setHermano(h2.getRaiz().getHijo());//El hijo actual de h2 pasa a ser hermano de h1
             h2.getRaiz().setHijo(h1.getRaiz());
             return h2;
@@ -34,11 +29,6 @@ public class HeapBinomial {
     }
 
     public void unir(HeapBinomial unHeap, HeapBinomial otroHeap) {
-       /*  System.out.println("\nDENTRO DE UNION");
-        System.out.println("Los heaps que quiero unir son:");
-        unHeap.printHeap();
-        otroHeap.printHeap(); */
-
         if (unHeap.esVacio()) {
             this.cabeza = otroHeap.cabeza;
             return;
@@ -66,7 +56,6 @@ public class HeapBinomial {
         
         //Uno las dos listas de raices de los heaps
         while (curr1 != null && curr2 != null) {
-            //System.out.println("DENTRO DEL WHILE DE UNION PARA GENERAR LA LISTA ORDENADA POR GRADO");
             if (curr1.getGrado() <= curr2.getGrado()) {
                 tail.setHermano(curr1);
                 curr1 = curr1.getHermano();
@@ -85,7 +74,6 @@ public class HeapBinomial {
         }
 
         this.cabeza.setRaiz(head);
-        //this.printHeap();
 
 
         //Ahora tengo que recorrer la lista y unir los arboles del mismo grado
@@ -95,24 +83,16 @@ public class HeapBinomial {
 
 
         while(next !=null){
-            /* System.out.println("DENTRO DEL WHILE DE UNION PARA UNIR ARBOLES DEL MISMO GRADO");
-            System.out.println("El actual es: " + curr.getRaiz().getKey() + " con grado: " + curr.getGrado());
-            System.out.println("El siguiente es: " + next.getRaiz().getKey() + " con grado: " + next.getGrado());
-            System.out.println("El previo es: " + (prev != null ? prev.getRaiz().getKey() : "null")); */
             if(curr.getGrado() != next.getGrado()){//Si no son del mismo grado, avanzo
-                //System.out.println("NO TIENEN EL MISMO GRADO");
                 prev = curr;
                 curr = next;
                 next = (next.getRaiz().getHermano() != null) ? new ArbolBinomial(next.getRaiz().getHermano()) : null;
             } else {//Si son del mismo grado, los uno
-                //System.out.println("TIENEN EL MISMO GRADO");
                 if(next.getRaiz().getHermano() != null && next.getRaiz().getHermano().getGrado() == curr.getGrado()){//3 arboles del mismo grado
-                    //System.out.println("HAY 3 ARBOLES DEL MISMO GRADO, AVANZO");
                     prev = curr;
                     curr = next;
                     next = (next.getRaiz().getHermano() != null) ? new ArbolBinomial(next.getRaiz().getHermano()) : null;
                 } else {
-                    //System.out.println(" 2 arboles TIENEN EL MISMO GRADO");
                     curr.getRaiz().setHermano(next.getRaiz().getHermano());
                     curr = merge(curr, next);
                     if (prev == null) {
@@ -120,7 +100,6 @@ public class HeapBinomial {
                     } else {
                         prev.getRaiz().setHermano(curr.getRaiz());
                     }
-                    //System.out.println("Luego del merge, el nuevo arbol es con raiz: " + curr.getRaiz().getKey() + " y grado: " + curr.getGrado());
                     next = (curr.getRaiz().getHermano() != null) ? new ArbolBinomial(curr.getRaiz().getHermano()) : null;    
                 }
             }
@@ -130,7 +109,6 @@ public class HeapBinomial {
 
     public NodoBinomial buscarMin() {
         if (this.cabeza == null) {
-            //System.out.println("El heap esta vacio");
             return null;
         }
 
@@ -149,46 +127,36 @@ public class HeapBinomial {
     }
 
     public void extraerMin() {
-        //System.out.println("DENTRO DE ELIMINAR MIN");
         if (this.esVacio()) {
             System.out.println("El heap esta vacio");
             return;
         }
 
         // Encuentra el nodo con la clave mínima y su predecesor
-        //System.out.println("BUSCANDO EL MINIMO Y SU PREDECESOR");
         NodoBinomial minNode = this.cabeza.getRaiz();
         NodoBinomial curr = minNode.getHermano();
         NodoBinomial prevMin = null;
         NodoBinomial prev = minNode;
 
         while (curr != null) {
-            //System.out.println("El actual es: " + curr.getKey() + " y el minimo es: " + minNode.getKey());
             if (curr.getKey() < minNode.getKey()) {
                 minNode = curr;
                 prevMin = prev;
-                //System.out.println("El nuevo minimo es: " + minNode.getKey());
             }
             prev = curr;
             curr = curr.getHermano();
         }
-        //System.out.println("El valor minimo es: " + minNode.getKey()+ " y el previo es: " + (prevMin != null ? prevMin.getKey() : "null"));
         
         // Elimina minNode de la lista de raíces
-        //System.out.println("ELIMINANDO EL MINIMO DE LA LISTA DE RAICES");
         if (prevMin == null) {
             this.cabeza.setRaiz(minNode.getHermano());
         } else {
             prevMin.setHermano(minNode.getHermano());
         }
-        //this.printHeap();
 
         //Crear un nuevo heap con los hijos de minNode
-        //System.out.println("CREANDO UN HEAP TEMPORAL CON LOS HIJOS DEL MINIMO");
 
         if (minNode.getHijo() == null) {
-            /* System.out.println("El minimo no tiene hijos, solo se elimina.");
-            System.out.println("El valor minimo " + minNode.getKey() + " ha sido eliminado.") */;
             return;
         }
 
@@ -196,7 +164,6 @@ public class HeapBinomial {
         NodoBinomial child = minNode.getHijo();
         NodoBinomial prevChild = null;
 
-        //System.out.println("El hijo del minimo es: " + (child != null ? child.getKey() : "null"));
         while (child != null) {
             NodoBinomial next = child.getHermano();
             child.setHermano(prevChild);
@@ -209,7 +176,6 @@ public class HeapBinomial {
         if (prevChild != null) {
             tempHeap.cabeza = new ArbolBinomial(prevChild);
         }
-        //tempHeap.printHeap();
 
         // Unir el heap temporal con el heap actual
         this.unir(this, tempHeap);
@@ -218,7 +184,6 @@ public class HeapBinomial {
 
 
     public void insertar(int key) {
-        //System.out.println("DENTRO DE INSERTAR");
         NodoBinomial nuevo = new NodoBinomial(key);
         ArbolBinomial temp = new ArbolBinomial(nuevo);
         if (this.cabeza == null) {
@@ -234,7 +199,6 @@ public class HeapBinomial {
 
 
     public void disminuirClave(NodoBinomial nodo, int nuevoValor) {
-        //System.out.println("DENTRO DE DISMINUIR CLAVE");
         if(nodo.getKey() < nuevoValor) {
             System.out.println("El nuevo valor es mayor que el valor actual.");
             return;
@@ -256,9 +220,7 @@ public class HeapBinomial {
     }   
 
 
-    public void eliminar(int key){
-        NodoBinomial node = this.cabeza.buscarNodo(key);
-        //System.out.println("Se encontró el nodo con clave: " + (node != null ? node.getKey() : "null"));
+    public void eliminar(NodoBinomial node) {
         disminuirClave(node, Integer.MIN_VALUE);
         extraerMin();
     }
