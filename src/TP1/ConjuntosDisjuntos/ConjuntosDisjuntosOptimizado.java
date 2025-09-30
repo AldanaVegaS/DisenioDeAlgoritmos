@@ -29,9 +29,14 @@ public class ConjuntosDisjuntosOptimizado {
         return padre[x];
     }
 
-
-    
     public void fusionar(int a, int b) {
+        if (a < b)
+            padre[b] = a;
+        else
+            padre[a] = b;
+    }
+    
+    public void fusionarUnionByRank(int a, int b) {
         int raizA = buscarPC(a);
         int raizB = buscarPC(b);
         
