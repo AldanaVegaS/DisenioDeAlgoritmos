@@ -11,15 +11,15 @@ public class GaleShapleyAlgorithm {
 
     private int n; // Cantidad de hombres y mujeres
     private BitSet[] forbidden; // Matriz de pares prohibidos
-    private int[][] rankM; // rankM[i][j] es el ranking de la mujer j para el hombre i
+    private int[][] prefM; // rankM[i][j] es el ranking de la mujer j para el hombre i
     private int[][] rankW; // rankW[j][i] es el ranking del hombre i para la mujer j
     private int[] currentMatchW; // currentMatchW[j] es el hombre actualmente emparejado con la mujer j
     private int[] currentMatchM; // currentMatchM[i] es la mujer actualmente emparejada con el hombre i
 
-    public GaleShapleyAlgorithm(BitSet[] forbidden, int[][] rankM, int[][] rankW) {
-        this.n = rankM.length;
+    public GaleShapleyAlgorithm(BitSet[] forbidden, int[][] prefM, int[][] rankW) {
+        this.n = prefM.length;
         this.forbidden = forbidden;
-        this.rankM = rankM;
+        this.prefM = prefM;
         this.rankW = rankW;
         this.currentMatchW = new int[n];
         this.currentMatchM = new int[n];
@@ -46,7 +46,7 @@ public class GaleShapleyAlgorithm {
             boolean found = false;
 
             while (nextProposal[m] < n && !found) { // Buscar la siguiente mujer no prohibida
-                candidate = rankM[m][nextProposal[m]];
+                candidate = prefM[m][nextProposal[m]];
                 if (!forbidden[m].get(candidate)) { // Si el par (m, candidate) no está prohibido
                     w = candidate; // La siguiente mujer a la que el hombre m le propondrá
                     found = true;
