@@ -7,12 +7,12 @@ import java.util.BitSet;
 
 public class GaleShapleyAlgorithm {
     
-    // Implementacion con pares prohibidos.
+    // Implementacion con pares prohibidos. Versión Hombres-proponen-Mujeres.
 
     private int n; // Cantidad de hombres y mujeres
     private BitSet[] forbidden; // Matriz de pares prohibidos
-    private int[][] prefM; // rankM[i][j] es el ranking de la mujer j para el hombre i
-    private int[][] rankW; // rankW[j][i] es el ranking del hombre i para la mujer j
+    private int[][] prefM; // prefM[i][j] es la j-ésima preferencia del hombre i
+    private int[][] rankW; // rankW[j][i] es el ranking de la mujer j para el hombre i
     private int[] currentMatchW; // currentMatchW[j] es el hombre actualmente emparejado con la mujer j
     private int[] currentMatchM; // currentMatchM[i] es la mujer actualmente emparejada con el hombre i
 

@@ -19,7 +19,7 @@ public class test {
         // El hombre 0 no puede estar con la mujer 3
         forbidden[0].set(3, true);
 
-        int[][] rankM = {
+        int[][] prefM = {
             {0, 1, 2}, // Preferencias del hombre 0
             {1, 0, 2}, // Preferencias del hombre 1
             {0, 1, 2}  // Preferencias del hombre 2
@@ -31,7 +31,7 @@ public class test {
             {2, 0, 1}  // Preferencias de la mujer 2
         };
 
-        GaleShapleyAlgorithm gsa = new GaleShapleyAlgorithm(forbidden, rankM, rankW);
+        GaleShapleyAlgorithm gsa = new GaleShapleyAlgorithm(forbidden, prefM, rankW);
         int[] result = gsa.stableMarriage();
 
         for (int i = 0; i < result.length; i++) {
