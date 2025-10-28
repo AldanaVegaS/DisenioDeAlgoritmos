@@ -50,6 +50,12 @@ public class GaleShapleyAlgorithm {
 
             nextProposal[a]++; // Preparar la siguiente propuesta para el ofertante a
 
+            if (isCompany) {
+                System.out.print("Empresa " + a + " propone a Estudiante " + b);
+            } else {
+                System.out.print("Estudiante " + a + " propone a Empresa " + b);
+            }
+
             if (currentMatchB[b] == -1) { // El receptor b está libre
                 currentMatchA[a] = b;
                 currentMatchB[b] = a;
