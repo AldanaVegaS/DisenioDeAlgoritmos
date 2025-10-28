@@ -10,14 +10,14 @@ public class test {
             forbidden[i] = new BitSet(3);
         }
 
+        // El hombre 1 no puede estar con la mujer 0
+        forbidden[1].set(0, true);
         // El hombre 1 no puede estar con la mujer 1
         forbidden[1].set(1, true);
         // El hombre 1 no puede estar con la mujer 2
         forbidden[1].set(2, true);
-        // El hombre 0 no puede estar con la mujer 3
-        forbidden[1].set(3, true);
-        // El hombre 0 no puede estar con la mujer 3
-        forbidden[0].set(3, true);
+        // El hombre 0 no puede estar con la mujer 2
+        forbidden[0].set(2, true);
 
         int[][] prefM = {
             {0, 1, 2}, // Preferencias del hombre 0
@@ -34,11 +34,14 @@ public class test {
         GaleShapleyAlgorithm gsa = new GaleShapleyAlgorithm(forbidden, prefM, rankW);
         int[] result = gsa.stableMarriage();
 
+        System.out.println("\nEmparejamientos finales (Hombre, Mujer):");
         for (int i = 0; i < result.length; i++) {
-            System.out.println("Hombre " + i + " está emparejado con Mujer " + result[i]);
+            if (result[i] != -1) {
+                System.out.println("(" + i + ", " + result[i] + ")");
+            }
         }
 
-        System.out.println("Solteros:");
+        System.out.println("\nSolteros:");
         System.out.println("Hombres solteros: " + gsa.getSingleMen());
         System.out.println("Mujeres solteras: " + gsa.getSingleWomen());
 

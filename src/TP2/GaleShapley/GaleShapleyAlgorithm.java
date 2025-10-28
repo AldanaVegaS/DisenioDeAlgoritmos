@@ -55,16 +55,20 @@ public class GaleShapleyAlgorithm {
             }
 
             if (!found) {
+                System.out.println("Hombre " + m + " ya no tiene a quién proponer. Se elimina de la cola.");
                 freeMen.poll(); // Si el hombre m ha propuesto a todas las mujeres, se saca de la cola
                 continue;
             }
             
             nextProposal[m]++; // Preparar la siguiente propuesta para el hombre m
 
+            System.out.print("Hombre " + m + " propone a Mujer " + w);
+
             if (currentMatchW[w] == -1) { // La mujer w está libre
                 currentMatchM[m] = w;
                 currentMatchW[w] = m;
                 freeMen.poll();
+                System.out.println(" --> Mujer " + w + " acepta (está libre)");
             } else {
                 int mCurrent = currentMatchW[w];
                 // La mujer w ya está emparejada, verificar si prefiere al nuevo hombre
@@ -75,6 +79,8 @@ public class GaleShapleyAlgorithm {
                     currentMatchM[mCurrent] = -1; // El hombre mCurrent queda libre
                     freeMen.poll(); // El hombre m ya no está libre
                     freeMen.add(mCurrent); // El hombre actualmente emparejado vuelve a estar libre
+
+                    System.out.println(" --> Mujer " + w + " acepta (prefiere a Hombre " + m + " sobre Hombre " + mCurrent + "). Libera a Hombre " + mCurrent);
                 }
                 // Si la mujer w prefiere a su actual pareja, el hombre m sigue libre y propone a la siguiente mujer
             }
