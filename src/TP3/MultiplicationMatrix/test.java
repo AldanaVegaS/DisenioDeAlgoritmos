@@ -1,4 +1,4 @@
-package TP3;
+package TP3.MultiplicationMatrix;
 
 public class test {
     public static void main(String[] args) {
